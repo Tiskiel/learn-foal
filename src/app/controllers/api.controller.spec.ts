@@ -1,6 +1,6 @@
 // std
 // The `assert` module provides a simple set of assertion tests.
-import { ok, strictEqual } from "assert";
+import { ok, strictEqual } from 'assert';
 
 // 3p
 import {
@@ -8,16 +8,16 @@ import {
   getHttpMethod,
   getPath,
   isHttpResponseOK,
-} from "@foal/core";
-import { DataSource } from "typeorm";
+} from '@foal/core';
+import { DataSource } from 'typeorm';
 
 // App
-import { Todo } from "../entities";
-import { ApiController } from "./api.controller";
-import { createDataSource } from "../../db";
+import { Todo } from '../entities';
+import { ApiController } from './api.controller';
+import { createDataSource } from '../../db';
 
 // Define a group of tests.
-describe("ApiController", () => {
+describe('ApiController', () => {
   let dataSource: DataSource;
   let controller: ApiController;
 
@@ -45,21 +45,21 @@ describe("ApiController", () => {
   // Define a nested group of tests.
   describe('has a "getTodos" method that', () => {
     // Define a unit test.
-    it("should handle requests at GET /todos.", () => {
+    it('should handle requests at GET /todos.', () => {
       // Throw an error and make the test fail if the HTTP method of `getTodos` is not GET.
-      strictEqual(getHttpMethod(ApiController, "getTodos"), "GET");
+      strictEqual(getHttpMethod(ApiController, 'getTodos'), 'GET');
       // Throw an error and make the test fail if the path of `getTodos` is not /todos.
-      strictEqual(getPath(ApiController, "getTodos"), "/todos");
+      strictEqual(getPath(ApiController, 'getTodos'), '/todos');
     });
 
     // Define a unit test.
-    it("should return an HttpResponseOK.", async () => {
+    it('should return an HttpResponseOK.', async () => {
       // Create fake todos.
       const todo1 = new Todo();
-      todo1.text = "Todo 1";
+      todo1.text = 'Todo 1';
 
       const todo2 = new Todo();
-      todo2.text = "Todo 2";
+      todo2.text = 'Todo 2';
 
       // Save the todos.
       await Todo.save([todo1, todo2]);
@@ -67,14 +67,14 @@ describe("ApiController", () => {
       const response = await controller.getTodos();
       ok(
         isHttpResponseOK(response),
-        "response should be an instance of HttpResponseOK."
+        'response should be an instance of HttpResponseOK.',
       );
 
       const body = response.body;
 
-      ok(Array.isArray(body), "The body of the response should be an array.");
-      strictEqual(body[0].text, "Todo 1");
-      strictEqual(body[1].text, "Todo 2");
+      ok(Array.isArray(body), 'The body of the response should be an array.');
+      strictEqual(body[0].text, 'Todo 1');
+      strictEqual(body[1].text, 'Todo 2');
     });
   });
 });

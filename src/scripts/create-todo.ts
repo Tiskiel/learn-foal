@@ -1,15 +1,15 @@
-import { Todo } from "../app/entities";
-import { dataSource } from "../db";
+import { Todo } from '../app/entities';
+import { dataSource } from '../db';
 
 export const schema = {
   additionalProperties: false,
   properties: {
     text: {
-      type: "string",
+      type: 'string',
     },
   },
-  required: ["text"],
-  type: "object",
+  required: ['text'],
+  type: 'object',
 };
 
 export async function main(args: any) {

@@ -6,18 +6,18 @@ import {
   HttpResponseNotFound,
   HttpResponseOK,
   Post,
-} from "@foal/core";
-import { Todo } from "../entities";
-import { Context } from "mocha";
+} from '@foal/core';
+import { Todo } from '../entities';
+import { Context } from 'mocha';
 
 export class ApiController {
-  @Get("/todos")
+  @Get('/todos')
   async getTodos() {
     const todos = await Todo.find();
     return new HttpResponseOK(todos);
   }
 
-  @Post("/todos")
+  @Post('/todos')
   async postTodo(ctx: Context) {
     const todo = new Todo();
     todo.text = ctx.request.body.text;
@@ -27,7 +27,7 @@ export class ApiController {
     return new HttpResponseCreated(todo);
   }
 
-  @Delete("/todos/:id")
+  @Delete('/todos/:id')
   async deleteTodo(ctx: Context) {
     const todo = await Todo.findOneBy({ id: ctx.request.params.id });
 
