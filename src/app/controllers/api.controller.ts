@@ -1,6 +1,8 @@
 import {
   Delete,
   Get,
+  HttpResponseCreated,
+  HttpResponseNoContent,
   HttpResponseNotFound,
   HttpResponseOK,
   Post,
@@ -15,17 +17,18 @@ export class ApiController {
     return new HttpResponseOK(todos);
   }
 
-  @Post("/todos/:id")
-  async postTodos(ctx: Context) {
+  @Post("/todos")
+  async postTodo(ctx: Context) {
     const todo = new Todo();
     todo.text = ctx.request.body.text;
+
     await todo.save();
 
-    return new HttpResponseOK(todo);
+    return new HttpResponseCreated(todo);
   }
 
   @Delete("/todos/:id")
-  async deleteTodos(ctx: Context) {
+  async deleteTodo(ctx: Context) {
     const todo = await Todo.findOneBy({ id: ctx.request.params.id });
 
     if (!todo) {
@@ -34,6 +37,6 @@ export class ApiController {
 
     await todo.remove();
 
-    return new HttpResponseOK(todo);
+    return new HttpResponseNoContent();
   }
 }
